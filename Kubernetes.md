@@ -137,7 +137,7 @@ spec:
 This job will run once and the output can be found in the logs.
 
 ```
-pods=$(kubectl get pods --selector=job-name=omicicx --output=jsonpath='{.items[*].metadata.name}')  \
+pods=$(kubectl get pods --selector=job-name=omicidx --output=jsonpath='{.items[*].metadata.name}')  \
   && echo $pods \
   && kubectl logs $pods
 ```

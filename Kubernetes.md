@@ -1,5 +1,9 @@
 # Kubernetes
 
+## Resources
+
+- [Kubernetes for docker users](https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/)
+
 ## Google Kubernetes Engine
 
 Google Kubernetes Engine is a managed platform for running kubernetes clusters.
@@ -86,4 +90,32 @@ And cleanup.
 kubectl delete jobs/pi
 # or
 kubectl delete -f ./job.yaml
+```
+
+## Quick answers
+
+### Run an ubuntu instance on kubernetes with bash.
+
+```
+kubectl run my-shell --rm -i --tty --image ubuntu -- bash
+```
+
+## NOT USED
+
+Get the name of the pod 
+
+```
+kubectl get pods
+```
+
+And run a command:
+
+```
+kubectl exec ubuntu-box-XXXXXXX -- cat /etc/hostname
+```
+
+Or attach to the pod interactively:
+
+```
+kubectl attach -ti ubuntu-box-XXXXXXX 
 ```

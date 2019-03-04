@@ -93,6 +93,55 @@ kubectl delete jobs/pi
 kubectl delete -f ./job.yaml
 ```
 
+### Authentication for google
+
+On kubernetes, one needs to set up a key file to allow tools like gsutil to work correctly. Assuming that one has
+a key file (from a service account):
+
+```
+kubectl create secret generic google-key --from-file=key.json=PATH-TO-KEY-FILE.json
+```
+
+File: job2.yaml
+
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: omicidx
+spec:
+  template:
+    metadata:
+      labels:
+        app: omicidx
+    spec:
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: google-key
+      containers:
+      - name: subscriber
+        # just to test gsutil, for example
+        image: google/cloud-sdk:latest 
+        command: ['gsutil', 'ls']
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json
+      restartPolicy: Never
+  backoffLimit: 4
+```
+
+This job will run once and the output can be found in the logs.
+
+```
+pods=$(kubectl get pods --selector=job-name=omicicx --output=jsonpath='{.items[*].metadata.name}')  \
+  && echo $pods \
+  && kubectl logs $pods
+```
+
 ## Quick answers
 
 ### Run an ubuntu instance on kubernetes with bash.

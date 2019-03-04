@@ -3,7 +3,7 @@
 ## Resources
 
 - [Kubernetes for docker users](https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/)
-- [fire up an interactive bash within kubernetes (for throwaway stuff)]https://gc-taylor.com/blog/2016/10/31/fire-up-an-interactive-bash-pod-within-a-kubernetes-cluster
+- [fire up an interactive bash within kubernetes (for throwaway stuff)](https://gc-taylor.com/blog/2016/10/31/fire-up-an-interactive-bash-pod-within-a-kubernetes-cluster)
 
 ## Google Kubernetes Engine
 

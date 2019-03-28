@@ -142,6 +142,41 @@ pods=$(kubectl get pods --selector=job-name=omicidx --output=jsonpath='{.items[*
   && kubectl logs $pods
 ```
 
+## Configuration
+
+### secrets and configmaps
+
+- https://medium.com/google-cloud/kubernetes-configmaps-and-secrets-68d061f7ab5b
+
+```
+kubectl create secret generic apikey --from-literal=API_KEY=123–456
+```
+
+```
+kubectl create configmap language --from-literal=LANGUAGE=English
+```
+
+```
+kubectl get secrets
+kubectl get configmaps
+```
+
+Replacing values:
+
+```
+kubectl create configmap language --from-literal=LANGUAGE=Spanish \
+        -o yaml --dry-run | kubectl replace -f -
+kubectl create secret generic apikey --from-literal=API_KEY=098765 \
+        -o yaml --dry-run | kubectl replace -f -
+```
+
+And then restart pods:
+
+```
+kubectl delete pods -l name=XXXXXX # from label
+```
+
+
 ## Quick answers
 
 ### Run an ubuntu instance on kubernetes with bash.
@@ -149,6 +184,7 @@ pods=$(kubectl get pods --selector=job-name=omicidx --output=jsonpath='{.items[*
 ```
 kubectl run my-shell --rm -i --tty --image ubuntu -- bash
 ```
+
 
 ## NOT USED
 

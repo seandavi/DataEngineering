@@ -161,6 +161,42 @@ kubectl get secrets
 kubectl get configmaps
 ```
 
+And to use:
+
+```
+
+# Copyright 2017, Google, Inc.
+# Licensed under the Apache License, Version 2.0 (the "License")
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: envtest
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: envtest
+    spec:
+      containers:
+      - name: envtest
+        image: gcr.io/<PROJECT_ID>/envtest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: LANGUAGE
+          valueFrom:
+            configMapKeyRef:
+              name: language
+              key: LANGUAGE
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: apikey
+              key: API_KEY
+```
+
+
 Replacing values:
 
 ```
